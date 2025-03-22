@@ -5,12 +5,21 @@ import ProfileSecurity from './pages/profile/ProfileSecurity';
 import ProfilePaymentMethods from './pages/profile/ProfilePaymentMethods';
 import ProfileBalance from './pages/profile/ProfileBalance';
 import Layout from './components/layout/Layout';
+import SignIn from './pages/auth/SignIn';
+import SignUp from './pages/auth/SignUp';
+import VerifyCode from './pages/auth/VerifyCode';
 
 function App() {
   return (
     <Router>
       <div className="min-h-screen bg-[#0c0c0c]">
         <Routes>
+          {/* Auth Routes */}
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/verify-code" element={<VerifyCode />} />
+
+          {/* Protected Routes */}
           <Route path="/" element={<Navigate to="/profile" replace />} />
           <Route path="/" element={<Layout />}>
             <Route path="/profile" element={<ProfileGeneral />} />
