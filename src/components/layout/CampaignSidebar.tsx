@@ -1,0 +1,77 @@
+import { Link } from "react-router-dom"
+
+interface ProfileSidebarProps {
+  activeItem?: "overview" | "start-here" | "rewards"
+}
+
+export function CampaignSidebar({ activeItem = "overview" }: ProfileSidebarProps) {
+  return (
+    <aside className="w-full lg:w-[375px] lg:min-h-screen border-r border-[#2a2a2a] p-6 bg-[#121212]">
+      <div className="relative h-[150px] rounded-xl overflow-hidden mb-6">
+        <img
+          src="https://img-v2-prod.whop.com/rEuqtdgmTyTyI2bULxNzKfor_PpwqFmSgZj4FyUWvx0/rs:fit:1280:720/el:1/dpr:2/aHR0cHM6Ly9hc3NldHMud2hvcC5jb20vdXBsb2Fkcy8yMDI1LTAxLTI2L3VzZXJfMjE3MzE2OF83NjA0ZmU3OC02MmYwLTQ1ZTctYjFjZS1jNmZlOGVhYzQ3MGQuanBlZw"
+          alt="Campaign banner"
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-black/50"></div>
+        <div className="absolute top-4 left-4 flex items-center z-10">
+          <img
+            src="https://img-v2-prod.whop.com/6h3sfg_FqzkV8VtmHQ41wHmNYgK6xQepCrUU9lSl0wI/rs:fill:80:80/el:1/dpr:2/aHR0cHM6Ly9hc3NldHMud2hvcC5jb20vdXBsb2Fkcy8yMDI1LTAyLTExL3VzZXJfMjE3MzE2OF85NTc2MmVhOS1kZjdhLTQ2OWItODE5YS1lZGI5NTcwZGMwYzguanBlZw"
+            alt="Brez Scales Clips logo"
+            width={24}
+            height={24}
+            className="rounded mr-2 border border-white/40"
+          />
+          <span className="font-semibold text-white">Brez Scales Clips</span>
+        </div>
+      </div>
+
+      <nav className="space-y-2">
+        <Link
+          to="/campaign"
+          className={`flex items-center px-4 py-3 rounded-xl font-semibold text-base text-white ${activeItem === "overview" ? "bg-[#1c1c1c]" : "hover:bg-[#1c1c1c]"}`}
+        >
+          <img
+            src="https://img-v2-prod.whop.com/6h3sfg_FqzkV8VtmHQ41wHmNYgK6xQepCrUU9lSl0wI/rs:fill:80:80/el:1/dpr:2/aHR0cHM6Ly9hc3NldHMud2hvcC5jb20vdXBsb2Fkcy8yMDI1LTAyLTExL3VzZXJfMjE3MzE2OF85NTc2MmVhOS1kZjdhLTQ2OWItODE5YS1lZGI5NTcwZGMwYzguanBlZw"
+            alt="Brez Scales Clips logo"
+            width={30}
+            height={30}
+            className="rounded mr-3"
+          />
+          Resumen
+        </Link>
+
+        <div className="pt-4 border-t border-[#2a2a2a] mt-4">
+          <Link
+            to="/campaign-start-here"
+            className={`flex items-center px-4 py-3 rounded-xl font-semibold text-base transition-colors text-white ${activeItem === "start-here" ? "bg-[#1c1c1c]" : "hover:bg-[#1c1c1c]"}`}
+          >
+            <img
+              src="https://img-v2-prod.whop.com/X6k_ozpYUY84nlanH6CyRTIRRP3VFwbJ0w593iHJm1o/rs:fill:80:80/el:1/dpr:2/aHR0cHM6Ly9hc3NldHMud2hvcC5jb20vdXBsb2Fkcy8yMDI1LTAzLTA2L3VzZXJfMjE3MzE2OF8wZjZiNjBkOS0zYTNiLTRjNjMtOTAxMS1lN2ZmMTE5ZGY5Y2IucG5n"
+              alt="START HERE icon"
+              width={30}
+              height={30}
+              className="rounded mr-3"
+            />
+            START HERE
+          </Link>
+
+          <Link
+            to="/campaign-rewards"
+            className={`flex items-center px-4 py-3 rounded-xl font-semibold text-base transition-colors text-white ${activeItem === "rewards" ? "bg-[#1c1c1c]" : "hover:bg-[#1c1c1c]"}`}
+          >
+            <img
+              src="https://img-v2-prod.whop.com/uxJX37zd8NkHDzEDKdt2kTVWBPv-63XskD3XC1c7Hrk/rs:fill:80:80/el:1/dpr:2/aHR0cHM6Ly9hc3NldHMud2hvcC5jb20vdXBsb2Fkcy8yMDI1LTAzLTA2L3VzZXJfMjE3MzE2OF9lYzVmNDAwYy00YmEwLTQxOWQtOGQ4Ny04MzZmNDNjYzY1NmEucG5n"
+              alt="REWARDS icon"
+              width={30}
+              height={30}
+              className="rounded mr-3"
+            />
+            REWARDS
+          </Link>
+        </div>
+      </nav>
+    </aside>
+  )
+}
+

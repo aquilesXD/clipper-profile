@@ -8,6 +8,10 @@ import Layout from './components/layout/Layout';
 import SignIn from './pages/auth/SignIn';
 import SignUp from './pages/auth/SignUp';
 import VerifyCode from './pages/auth/VerifyCode';
+import Campaign from './pages/campaign/Campaign';
+import CampaignRewards from './pages/campaign/CampaignRewards';
+import CampaignStartHere from './pages/campaign/CampaignStartHere';
+
 
 function App() {
   return (
@@ -29,6 +33,14 @@ function App() {
             <Route path="/profile-saldo" element={<ProfileBalance />} />
           </Route>
         </Routes>
+        {/* Campaing Routes*/}
+        <Routes>
+        <Route path="/" element={<Campaign />} />
+        <Route path="/campaign" element={<Campaign />} />
+        <Route path="/campaign-start-here" element={<CampaignStartHere />} />
+        <Route path="/campaign-rewards" element={<CampaignRewards />} />
+        {/* Add other routes as needed */}
+      </Routes>
       </div>
     </Router>
   );
