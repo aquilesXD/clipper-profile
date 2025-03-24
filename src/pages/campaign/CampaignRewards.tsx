@@ -16,7 +16,7 @@ export default function CampaignRewards() {
           <CampaignSidebar activeItem="rewards" />
           <main className="flex-1 p-4 lg:p-8">
             <div className="card border-0 bg-[#121212]">
-              <div className="card-header p-5">
+              <div className="card-header mb-3 p-5 border-b border-[#2a2a2a]">
                 <div className="flex items-center">
                   <img
                     src="https://img-v2-prod.whop.com/uxJX37zd8NkHDzEDKdt2kTVWBPv-63XskD3XC1c7Hrk/rs:fill:80:80/el:1/dpr:2/aHR0cHM6Ly9hc3NldHMud2hvcC5jb20vdXBsb2Fkcy8yMDI1LTAzLTA2L3VzZXJfMjE3MzE2OF9lYzVmNDAwYy00YmEwLTQxOWQtOGQ4Ny04MzZmNDNjYzY1NmEucG5n"
@@ -27,19 +27,19 @@ export default function CampaignRewards() {
                 </div>
               </div>
 
-              <div className="card-header mb-3 p-5">
-                <div className="w-full">
-                  <p className="text-xl font-medium text-white text-center mb-0">
-                    Tucker Carlson Podcast + News // $4 Per 1k Views
+                <div className="card-header mb-3 p-5 border-b border-[#2a2a2a]">
+                <div className="w-full space-y-4 pl-4">
+                  <p className="text-xl font-medium text-white mb-0 relative left-12">
+                  Tucker Carlson Podcast + News // $4 Per 1k Views
                   </p>
                 </div>
-              </div>
+                </div>
 
               <div className="card-body py-0 px-5">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
                   <div className="col-span-1 lg:col-span-7 text-justify">
-                    <div className="bg-yellow-100 text-yellow-800 p-3 rounded-xl">
-                      <p className="font-medium text-base">
+                    <div className="bg-[#1a1a1a] border border-[#333] p-3 rounded-xl">
+                      <p className="font-medium text-base text-[#FF9800]">
                         Submit your post for review within 1 hour of publishing to start getting paid
                       </p>
                     </div>

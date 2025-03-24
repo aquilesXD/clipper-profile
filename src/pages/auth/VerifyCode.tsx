@@ -90,11 +90,13 @@ const VerifyCode: React.FC = () => {
           >
             <path d="M19 12H5M12 19l-7-7 7-7" />
           </svg>
+          <Link className="text-white hover:underline text-sm sm:text-base" to="/signin">
           Back
+          </Link>
         </button>
 
         <div className="no-code text-center mt-2">
-          <Link className="text-white hover:underline text-sm sm:text-base" to="">
+          <Link className="text-white hover:underline text-sm sm:text-base" to="/signin">
             No recibí un código
           </Link>
         </div>

@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Settings, Link2, ShieldCheck, CreditCard, DollarSign } from 'lucide-react';
+import { Settings, Link2, ShieldCheck, CreditCard, DollarSign, User, Clock, Flag, AlertTriangle } from 'lucide-react';
 
 interface ProfileSidebarProps {
   mobile?: boolean;
@@ -8,6 +8,7 @@ interface ProfileSidebarProps {
 const ProfileSidebar = ({ mobile = false }: ProfileSidebarProps) => {
   const location = useLocation();
   const path = location.pathname;
+  
 
   const menuItems = [
     {
@@ -35,8 +36,29 @@ const ProfileSidebar = ({ mobile = false }: ProfileSidebarProps) => {
       icon: <DollarSign size={18} strokeWidth={1.75} />,
       path: '/profile-saldo',
     },
+    {
+      title: 'Historial de Facturación',
+      icon: <Clock size={18} strokeWidth={1.75} />,
+      path: '/profile-facturacion',
+    },
+    {
+      title: 'Membresías',
+      icon: <User size={18} strokeWidth={1.75} />,
+      path: '/profile-membresias',
+    },
+    {
+      title: 'Centro de Resoluciones',
+      icon: <Flag size={18} strokeWidth={1.75} />,
+      path: '/profile-resolucion',
+    },
+    {
+      title: 'Zona de Peligro',
+      icon: <AlertTriangle size={18} strokeWidth={1.75} />,
+      path: '/profile-peligro',
+    },
+    
   ];
-
+  
   return (
     <div className="h-full bg-[#0c0c0c]">
       <div className={`flex flex-col items-center ${mobile ? 'px-2 py-4' : 'p-5 pb-6'} border-b border-[#1c1c1c]`}>
