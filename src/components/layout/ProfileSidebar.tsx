@@ -9,7 +9,6 @@ const ProfileSidebar = ({ mobile = false }: ProfileSidebarProps) => {
   const location = useLocation();
   const path = location.pathname;
   
-
   const menuItems = [
     {
       title: 'General',

@@ -1,54 +1,140 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import '../../components/ui/Form.css';
 
 const SignIn: React.FC = () => {
+  const [email, setEmail] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+
+    try {
+      // Verificar conexión a internet
+      if (!navigator.onLine) {
+        throw new Error('No hay conexión a internet');
+      }
+
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 8000);
+
+      // Hacer la solicitud GET
+      const response = await fetch(
+        `https://contabl.net/nova/get-videos-to-pay?email=${encodeURIComponent(email)}`,
+        {
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json',
+          },
+          signal: controller.signal
+        }
+      );
+
+      clearTimeout(timeoutId);
+
+      // Manejar errores HTTP
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Error ${response.status}: ${errorText || 'Error desconocido'}`);
+      }
+
+      // Procesar respuesta
+      const data = await response.json();
+      
+      // Validar estructura de datos
+      if (!data.data || !Array.isArray(data.data)) {
+        throw new Error('Respuesta inválida del servidor');
+      }
+
+      // Buscar el email en los resultados
+      const userData = data.data.find((item: any) => item.email === email);
+      if (!userData) {
+        throw new Error('El correo no está registrado');
+      }
+
+      // Guardar datos relevantes
+      localStorage.setItem('userData', JSON.stringify({
+        email: userData.email,
+        whatsapp: userData.whatsapp_phone,
+        name: userData.first_name
+      }));
+
+      navigate('/profile-saldo');
+
+    } catch (err) {
+      let errorMessage = 'Error al iniciar sesión';
+      
+      if (err instanceof TypeError) {
+        errorMessage = 'Error de conexión - Verifica tu red';
+      } else if (err instanceof Error && err.name === 'AbortError') {
+        errorMessage = 'Tiempo de espera agotado';
+      } else if (err instanceof Error) {
+        errorMessage = err.message;
+      }
+      
+      setError(errorMessage);
+      console.error('Error en login:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-[#0c0c0c] flex items-center justify-center p-4">
-      <div className="login-container card w-full" style={{ maxWidth: '400px', borderRadius: '8px' }}>
-        {/* Logo */}
-        <div className="logo mt-4 text-center">
+    <div className="min-h-screen bg-black flex items-center justify-center p-4">
+      <div className="login-container w-full max-w-md bg-[#121212] rounded-lg p-6">
+        <div className="flex justify-center mb-4">
           <img
             alt="Clipper Logo"
             src="https://whop.com/oauth/_next/image/?url=%2Foauth%2Fwhop-logo-square.png&w=48&q=75"
-            className="mx-auto"
-            style={{ borderRadius: '8px' }}
+            className="w-12 h-12 rounded-lg"
           />
         </div>
 
-        <h2 className="text-white w-100 mt-1 text-center text-2xl sm:text-3xl font-bold">
-          Iniciar sesión Clipper
-        </h2>
+        <h2 className="text-white text-center text-2xl font-bold mb-6">Iniciar sesión Clipper</h2>
 
-        <form className="mt-6">
+        <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <input
-              className="form-control w-full p-2 sm:p-3 bg-[#191919] border border-[#333] text-white text-sm sm:text-base"
+              className="w-full p-3 bg-[#0c0c0c] border border-[#333] text-white rounded-md text-sm"
               id="email"
               placeholder="Tu correo"
               type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              disabled={loading}
             />
           </div>
+          
+          {error && (
+            <div className="text-red-500 text-sm mb-3 text-center">
+              {error}
+            </div>
+          )}
+
           <button
-            className="btn btn-primary w-full mt-2 bg-[#7c3aed] hover:bg-[#6d28d9] text-white font-medium py-2 sm:py-3 px-4 text-sm sm:text-base"
+            className="w-full p-3 bg-[#7c3aed] hover:bg-[#6d28d9] text-white font-medium rounded-md text-sm transition-colors disabled:opacity-50"
             type="submit"
+            disabled={loading}
           >
-            Continuar
+            {loading ? 'Verificando...' : 'Continuar'}
           </button>
         </form>
 
-        <div className="social-login mt-6">
-          <div className="container text-center">
-            <div className="hr-with-text flex items-center text-center my-2">
-              <div className="flex-1 border-t border-[#333]"></div>
-              <span className="px-2 text-[#999] text-xs sm:text-sm">O inicia sesión con</span>
-              <div className="flex-1 border-t border-[#333]"></div>
-            </div>
+        <div className="mt-6">
+          <div className="flex items-center my-4">
+            <div className="flex-1 border-t border-[#333]"></div>
+            <span className="px-3 text-[#999] text-xs">O inicia sesión con</span>
+            <div className="flex-1 border-t border-[#333]"></div>
           </div>
 
-          <div className="flex justify-center gap-4 mt-4">
+          <div className="flex justify-center gap-4">
             <button
-              className="btn flex items-center justify-center border border-[#333] p-2 hover:bg-[#1c1c1c] transition-colors"
+              className="p-2 border border-[#333] rounded-md hover:bg-[#1c1c1c] transition-colors"
               aria-label="Iniciar sesión con Discord"
               type="button"
             >
@@ -64,7 +150,7 @@ const SignIn: React.FC = () => {
               </svg>
             </button>
             <button
-              className="btn flex items-center justify-center border border-[#333] p-2 hover:bg-[#1c1c1c] transition-colors"
+              className="p-2 border border-[#333] rounded-md hover:bg-[#1c1c1c] transition-colors"
               aria-label="Iniciar sesión con Google"
               type="button"
             >
@@ -77,30 +163,42 @@ const SignIn: React.FC = () => {
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path d="M21.8055 10.0415H21V10H12V14H17.6515C16.827 16.3285 14.6115 18 12 18C8.6865 18 6 15.3135 6 12C6 8.6865 8.6865 6 12 6C13.5295 6 14.921 6.577 15.9805 7.5195L18.809 4.691C17.023 3.0265 14.634 2 12 2C6.4775 2 2 6.4775 2 12C2 17.5225 6.4775 22 12 22C17.5225 22 22 17.5225 22 12C22 11.3295 21.931 10.675 21.8055 10.0415Z" />
-                <path d="M3.15302 7.3455L6.43851 9.755C7.32752 7.554 9.48052 6 12.0005 6C13.5299 6 14.9214 6.577 15.981 7.5195L18.8095 4.691C17.0235 3.0265 14.6345 2 12.0005 2C8.1595 2 4.82799 4.1685 3.15302 7.3455Z" fill="#EA4335" />
-                <path d="M12.0004 22C14.5894 22 16.9304 21.0115 18.7044 19.404L15.6144 16.785C14.5719 17.5742 13.3039 18.001 12.0004 18C9.39895 18 7.19045 16.3415 6.35845 14.027L3.09845 16.5395C4.75245 19.778 8.11344 22 12.0004 22Z" fill="#34A853" />
-                <path d="M21.8055 10.0415H21V10H12V14H17.6515C17.2571 15.1082 16.5467 16.0766 15.6145 16.7855L15.6145 16.7845L18.7045 19.4035C18.4855 19.6025 22 17 22 12C22 11.3295 21.931 10.675 21.8055 10.0415Z" fill="#4A90E2" />
-                <path d="M6.35842 14.0269C6.19842 13.4569 6.11342 12.8569 6.11342 12.2469C6.11342 11.6369 6.20442 11.0369 6.35842 10.4669L6.35442 10.4269L3.12342 7.95691L3.09442 7.97391C2.40242 9.17691 2.00342 10.5669 2.00342 12.0469C2.00342 13.5269 2.40242 14.9169 3.09442 16.1199L6.35842 14.0269Z" fill="#FBBC05" />
+                <path
+                  d="M3.15302 7.3455L6.43851 9.755C7.32752 7.554 9.48052 6 12.0005 6C13.5299 6 14.9214 6.577 15.981 7.5195L18.8095 4.691C17.0235 3.0265 14.6345 2 12.0005 2C8.1595 2 4.82799 4.1685 3.15302 7.3455Z"
+                  fill="#EA4335"
+                />
+                <path
+                  d="M12.0004 22C14.5894 22 16.9304 21.0115 18.7044 19.404L15.6144 16.785C14.5719 17.5742 13.3039 18.001 12.0004 18C9.39895 18 7.19045 16.3415 6.35845 14.027L3.09845 16.5395C4.75245 19.778 8.11344 22 12.0004 22Z"
+                  fill="#34A853"
+                />
+                <path
+                  d="M21.8055 10.0415H21V10H12V14H17.6515C17.2571 15.1082 16.5467 16.0766 15.6145 16.7855L15.6145 16.7845L18.7045 19.4035C18.4855 19.6025 22 17 22 12C22 11.3295 21.931 10.675 21.8055 10.0415Z"
+                  fill="#4A90E2"
+                />
+                <path
+                  d="M6.35842 14.0269C6.19842 13.4569 6.11342 12.8569 6.11342 12.2469C6.11342 11.6369 6.20442 11.0369 6.35842 10.4669L6.35442 10.4269L3.12342 7.95691L3.09442 7.97391C2.40242 9.17691 2.00342 10.5669 2.00342 12.0469C2.00342 13.5269 2.40242 14.9169 3.09442 16.1199L6.35842 14.0269Z"
+                  fill="#FBBC05"
+                />
               </svg>
             </button>
           </div>
 
-          <p className="mt-4 text-center text-xs sm:text-sm" style={{ color: 'rgba(255, 255, 255, 0.7)' }}>
+          <p className="mt-4 text-center text-xs text-[#999]">
             Al registrarte, aceptas nuestros
-            <Link className="font-medium underline text-decoration-underline" to="" style={{ color: 'rgba(255, 255, 255, 0.7)' }}>
-              {' '}Términos
+            <Link className="font-medium underline mx-1 text-[#999]" to="">
+              Términos
             </Link>
-            {' '}&{' '}
-            <Link className="font-medium underline text-decoration-underline" to="" style={{ color: 'rgba(255, 255, 255, 0.7)' }}>
+            &
+            <Link className="font-medium underline mx-1 text-[#999]" to="">
               Privacidad
             </Link>
           </p>
         </div>
 
-        <div className="create-account">
+        <div className="mt-6">
           <hr className="border-t border-[#333] my-4" />
-          <div className="mt-3 flex items-center justify-center">
-            <p className="text-white text-center text-sm sm:text-base">
+          <div className="flex justify-center">
+            <p className="text-white text-sm">
               ¿Nuevo en Clipper?
               <Link className="text-[#7c3aed] ml-1 hover:underline" to="/signup">
                 Crear una cuenta
@@ -110,7 +208,7 @@ const SignIn: React.FC = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default SignIn;
+export default SignIn

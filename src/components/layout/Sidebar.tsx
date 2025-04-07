@@ -1,5 +1,15 @@
+import type React from "react"
 import { Link, useLocation } from 'react-router-dom';
 import { Home, MessageSquare, Bell, User, Search, Compass, Handshake, LayoutDashboard, Plus } from 'lucide-react';
+
+
+// Función para manejar el clic en el botón de búsqueda
+const handleSearchClick = (e: React.MouseEvent) => {
+  e.preventDefault()
+  // Disparar evento directamente sin importar el módulo
+  window.dispatchEvent(new Event("openSearchModal"))
+}
+
 
 const Sidebar = () => {
   const location = useLocation();
@@ -43,7 +53,7 @@ const Sidebar = () => {
       </Link>
 
       <Link
-        to="/home"
+        to="/inicio"
         className="flex h-10 w-10 items-center justify-center text-white rounded-md bg-[#191919] hover:bg-[#161616]"
         title="Home"
       >
@@ -51,12 +61,13 @@ const Sidebar = () => {
       </Link>
 
       <Link
-        to="/search"
-        className="flex h-10 w-10 items-center justify-center text-white rounded-md bg-[#191919] hover:bg-[#161616]"
-        title="Search"
-      >
-        <Search size={20} strokeWidth={1.5} />
-      </Link>
+          to="#"
+          onClick={handleSearchClick}
+          className="flex h-10 w-10 items-center justify-center text-white rounded-md bg-[#191919] hover:bg-[#161616]"
+          title="Search"
+        >
+          <Search size={20} strokeWidth={1.5} />
+        </Link>
 
       <Link
         to="/discover"
@@ -67,7 +78,7 @@ const Sidebar = () => {
       </Link>
 
       <Link
-        to="#"
+        to="/messages"
         className="flex h-10 w-10 items-center justify-center text-white rounded-md bg-[#191919] hover:bg-[#161616]"
         aria-label="Messages"
         title="Messages"
@@ -93,7 +104,7 @@ const Sidebar = () => {
       </Link>
 
       <Link
-        to="/affiliates"
+        to="/affiliate/customer"
         className="flex h-10 w-10 items-center justify-center text-white rounded-md bg-[#191919] hover:bg-[#161616]"
         title="Affiliates"
       >
