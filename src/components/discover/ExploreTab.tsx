@@ -1,13 +1,14 @@
 "use client"
 
 import { useState } from "react"
-import { TrendingUp, Star, Clock, ChevronRight } from "lucide-react"
-import { LivestreamCard } from "./LivestreamCard"
+import { Star, ChevronRight, X } from "lucide-react"
 import { ContentRewardCard } from "./ContentRewardCard"
 import { Link } from "react-router-dom"
 
 export function ExploreTab() {
   const [activeFilter, setActiveFilter] = useState<string>("trending")
+  const [showAppNameModal, setShowAppNameModal] = useState(false)
+  const [appName, setAppName] = useState("Evento")
 
   // Sample categories
   const categories = [
@@ -262,26 +263,71 @@ export function ExploreTab() {
     },
   ]
 
+  const renderAppNameModal = () => {
+    if (!showAppNameModal) return null
+
+    return (
+      <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50">
+        <div className="bg-[#121212] border border-[#2a2a2a] rounded-lg w-full max-w-sm overflow-hidden">
+          <div className="p-3 flex items-center">
+            <div className="bg-[#1a1a1a] h-8 w-8 rounded-md flex items-center justify-center text-white mr-2">A</div>
+            <span className="text-white text-sm">amazon</span>
+            <button className="ml-auto text-gray-400 hover:text-white" onClick={() => setShowAppNameModal(false)}>
+              <X size={16} />
+            </button>
+          </div>
+
+          <div className="flex flex-col items-center justify-center px-4 py-10">
+            <div className="bg-gradient-to-br from-orange-400 to-orange-600 w-16 h-16 rounded-2xl flex items-center justify-center mb-8 border-4 border-white">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="white">
+                <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
+              </svg>
+            </div>
+
+            <h2 className="text-white text-lg font-medium mb-8 text-center">
+              ¿Cómo le gustaría llamar a esta aplicación?
+            </h2>
+
+            <input
+              type="text"
+              value={appName}
+              onChange={(e) => setAppName(e.target.value)}
+              className="w-full bg-[#1a1a1a] border border-[#333] rounded-md px-4 py-2 text-white mb-10"
+              placeholder="Evento"
+            />
+          </div>
+
+          <button
+            className="w-full bg-[#1a1a1a] hover:bg-[#252525] text-white py-3 border-t border-[#2a2a2a]"
+            onClick={() => setShowAppNameModal(false)}
+          >
+            Volver
+          </button>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="w-full">
       {/* Livestreams Section */}
       <div className="mb-8">
-      <div className="flex justify-between items-center mb-4">
+        <div className="flex justify-between items-center mb-4">
           <div className="flex items-center gap-2">
             <span className="text-2xl">🔴</span>
             <h2 className="text-xl font-semibold text-white">Livestreams</h2>
+            <button className="ml-2 bg-blue-600 hover:bg-blue-700 rounded-full p-1.5 text-white">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M12 5V19M5 12H19"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
           </div>
-          <button className="bg-blue-600 hover:bg-blue-700 rounded-full p-1.5 text-white">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M12 5V19M5 12H19"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </button>
         </div>
         <p className="text-gray-400 text-sm mb-4">Mira transmisiones en vivo de algunas de las mejores creadoras.</p>
 
@@ -330,7 +376,7 @@ export function ExploreTab() {
         <div className="flex items-center justify-center mt-8">
           <hr className="flex-grow border-t border-[#2a2a2a]" />
           <Link
-            to="home"
+            to="/discover/all-streams"
             className="flex items-center text-blue-500 hover:text-blue-400 text-sm font-medium mx-4 cursor-pointer"
           >
             <span>Mostrar todo</span>
@@ -342,17 +388,28 @@ export function ExploreTab() {
 
       {/* Content Rewards Section */}
       <div className="mb-8">
-        <div className="mb-4">
+        <div className="flex justify-between items-center mb-4">
           <div className="flex items-center gap-2">
-        <span className="text-2xl">💰</span>
-        <h2 className="text-xl font-semibold text-white">Recompensas por contenido</h2>
+          <span className="text-2xl">💰</span>
+          <h2 className="text-xl font-semibold text-white">Recompensas por contenido</h2>
+            <button className="ml-2 bg-blue-600 hover:bg-blue-700 rounded-full p-1.5 text-white">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M12 5V19M5 12H19"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
           </div>
         </div>
         <p className="text-gray-400 text-sm mb-4">Cobra por crear contenidos!</p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {contentRewards.map((reward) => (
-        <ContentRewardCard key={reward.id} reward={reward} />
+            <ContentRewardCard key={reward.id} reward={reward} />
           ))}
         </div>
         <div className="flex items-center justify-center mt-8">
@@ -374,7 +431,7 @@ export function ExploreTab() {
           <div className="flex items-center gap-2">
             <span className="text-2xl">🔥</span>
             <h2 className="text-xl font-semibold text-white">Ya está aquí</h2>
-            <button className="ml-2 bg-[#1a1a1a] hover:bg-[#252525] rounded-full p-1">
+            <button className="ml-2 bg-blue-600 hover:bg-blue-700 rounded-full p-1.5 text-white">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M12 5V19M5 12H19"
@@ -693,8 +750,8 @@ export function ExploreTab() {
         </div>
 
         <div className="flex items-center justify-center mt-4">
-         <hr className="flex-grow border-t border-[#2a2a2a]" />
-         <hr className="flex-grow border-t border-[#2a2a2a]" />
+          <hr className="flex-grow border-t border-[#2a2a2a]" />
+          <hr className="flex-grow border-t border-[#2a2a2a]" />
         </div>
       </div>
 
@@ -704,7 +761,10 @@ export function ExploreTab() {
           <div className="flex items-center gap-2">
             <span className="text-2xl">📅</span>
             <h2 className="text-xl font-semibold text-white">Próximos eventos</h2>
-            <button className="ml-2 bg-[#1a1a1a] hover:bg-[#252525] rounded-full p-1">
+            <button
+              className="bg-blue-600 hover:bg-blue-700 rounded-full p-1.5 text-white"
+              onClick={() => setShowAppNameModal(true)}
+            >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M12 5V19M5 12H19"
@@ -717,7 +777,9 @@ export function ExploreTab() {
             </button>
           </div>
         </div>
-        <p className="text-gray-400 text-sm mb-4">Descubra los principales acontecimientos que tendrán lugar próximamente</p>
+        <p className="text-gray-400 text-sm mb-4">
+          Descubra los principales acontecimientos que tendrán lugar próximamente
+        </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {upcomingEvents.map((event) => (
@@ -839,9 +901,8 @@ export function ExploreTab() {
             </div>
           ))}
         </div>
-
-  
       </div>
+      {renderAppNameModal()}
     </div>
   )
 }

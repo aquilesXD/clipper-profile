@@ -9,6 +9,7 @@ import { MobileMenuToggle } from "./MobileMenuToggle"
 import { MobileSidebar } from "./MobileSidebar"
 
 
+
 export default function Dashboard() {
   const [selectedWhop, setSelectedWhop] = useState("amazon")
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -33,6 +34,8 @@ export default function Dashboard() {
 
       {/* Mobile Sidebar */}
       <MobileSidebar isOpen={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} />
+
+      
     </div>
   )
 }

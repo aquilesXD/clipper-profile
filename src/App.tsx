@@ -16,13 +16,16 @@ import Campaign from './pages/campaign/Campaign';
 import CampaignRewards from './pages/campaign/CampaignRewards';
 import CampaignStartHere from './pages/campaign/CampaignStartHere';
 import Home from './pages/campaign/Home';
-import Discover from './components/Discover';
+import Discover from './components/discover/Discover';
 import AffiliateCustomerDashboard from './components/afiliate/AffiliateCustomerDashboard';
 import AffiliateCreatorDashboard from './components/afiliate/AffiliateCreatorDashboard';
 import Dashboard from './components/dashboard/Dashboard';
 import Inicio from './components/Inicio';
 import Messages from './components/messsajes';
 import MessageConversation from './components/messsajes/conversation';
+import AllStreamsPage from './components/discover/AllStreamsPage';
+import { WhopsContent } from './components/dashboard/WhopsContent';
+
 
 
 function App() {
@@ -74,13 +77,17 @@ function App() {
         <Route path="/discover/explore" element={<Discover />} />
         <Route path="/discover/leaderboards" element={<Discover />} />
         <Route path="/discover/for-you" element={<Discover />} />
+        <Route path="/discover/all-streams" element={<AllStreamsPage />} />
+        
 
         {/* Affiliate Routes */}
         <Route path="/affiliate/customer" element={<AffiliateCustomerDashboard />} />
         <Route path="/affiliate/creator" element={<AffiliateCreatorDashboard />} />
 
         {/* Dashboard Routes */}
+        <Route path="/" element={<Dashboard />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard/whops" element={<WhopsContent />} />
 
       </Routes>
       </div>

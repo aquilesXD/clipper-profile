@@ -3,7 +3,7 @@
 import { useState } from "react"
 import Sidebar from "../../components/layout/Sidebar";
 import { CampaignSidebar } from "../../components/layout/CampaignSidebar";
-import { RewardModal } from "../../components/RewardModal"
+import { RewardModal } from "../../components/discover/RewardModal"
 
 export default function CampaignRewards() {
   const [isModalOpen, setIsModalOpen] = useState(false)

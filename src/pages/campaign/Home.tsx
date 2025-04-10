@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import Sidebar from "../../components/layout/Sidebar";
-import { RewardCard } from "../../components/RewardCard";
+import { RewardCard } from "../../components/discover/RewardCard";
 import { Search, ChevronLeft, ChevronRight } from "lucide-react"
 
 export default function Home() {
@@ -139,11 +139,18 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
             <div className="col-span-1 md:col-span-8">
               <div className="flex flex-wrap gap-2">
-                <button className="bg-[#1c1c1c] hover:bg-[#252525] text-white px-4 py-2 rounded-md">Explore</button>
-                <button className="bg-[#1c1c1c] hover:bg-[#252525] text-white px-4 py-2 rounded-md">
-                  Tabla de clasificación
+                <button
+                  className="bg-[#1c1c1c] hover:bg-[#252525] text-white px-4 py-2 rounded-md"
+                  onClick={() => window.location.href = "/discover/explore"}
+                >
+                  Explore
                 </button>
-                <button className="bg-[#1c1c1c] hover:bg-[#252525] text-white px-4 py-2 rounded-md">Para ti</button>
+                <button
+                  className="bg-[#1c1c1c] hover:bg-[#252525] text-white px-4 py-2 rounded-md"
+                  onClick={() => window.location.href = "/discover/leaderboards"}
+                >
+                  LeaderBoards
+                </button>
               </div>
             </div>
 

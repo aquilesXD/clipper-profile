@@ -3,10 +3,10 @@
 import { useState } from "react"
 import { useNavigate, useLocation } from "react-router-dom"
 import { Search } from "lucide-react"
-import { ExploreTab } from "../components/discover/ExploreTab"
-import { ForYouTab } from "../components/discover/ForYouTab"
-import Sidebar from "./layout/Sidebar"
-import { LeaderboardsTab } from "./discover/LeaderBoards"
+import { ExploreTab } from "./ExploreTab"
+import { ForYouTab } from "./ForYouTab"
+import Sidebar from "../layout/Sidebar"
+import { LeaderboardsTab } from "./LeaderBoards"
 
 type DiscoverTabType = "explore" | "leaderboards" | "for-you"
 
@@ -48,12 +48,6 @@ export default function Discover() {
                     onClick={() => handleTabChange("leaderboards")}
                   >
                     Leaderboards
-                  </button>
-                  <button
-                    className={`px-4 py-2 rounded-md ${activeTab === "for-you" ? "bg-[#252525] text-white" : "bg-[#1c1c1c] hover:bg-[#252525] text-gray-300"}`}
-                    onClick={() => handleTabChange("for-you")}
-                  >
-                    For you
                   </button>
                 </div>
               </div>

@@ -1,22 +1,41 @@
+"use client"
+
+import { useState } from "react"
+import { WhopCreatorsModal } from "./WhopCreatorsModal"
+
 interface RewardCardProps {
-    reward: {
-      id: number
-      avatar: string
-      creator: string
-      title: string
-      paidAmount: string
-      totalAmount: string
-      percentage: number
-      type: string
-      platform: string
-      rate: string
-      specialStyle?: boolean
-    }
+  reward: {
+    id: number
+    avatar: string
+    creator: string
+    title: string
+    paidAmount: string
+    totalAmount: string
+    percentage: number
+    type: string
+    platform: string
+    rate: string
+    specialStyle?: boolean
   }
-  
-  export function RewardCard({ reward }: RewardCardProps) {
-    return (
-      <div className="bg-[#1a1a1a] rounded-lg border border-[#2a2a2a]">
+}
+
+export function RewardCard({ reward }: RewardCardProps) {
+  const [showModal, setShowModal] = useState(false)
+
+  const handleCardClick = () => {
+    setShowModal(true)
+  }
+
+  const handleCloseModal = () => {
+    setShowModal(false)
+  }
+
+  return (
+    <>
+      <div
+        className="bg-[#1a1a1a] rounded-lg border border-[#2a2a2a] cursor-pointer hover:border-[#3a3a3a] transition-colors"
+        onClick={handleCardClick}
+      >
         <div className="p-4">
           <div className="flex items-center mb-3">
             <div className="h-10 w-10 rounded-full overflow-hidden mr-3 flex-shrink-0">
@@ -30,26 +49,26 @@ interface RewardCardProps {
               <p className="font-medium text-white">{reward.creator}</p>
             </div>
           </div>
-  
-          <p className="text-white font-medium mb-3 hover:underline cursor-pointer">{reward.title}</p>
-  
+
+          <p className="text-white font-medium mb-3 hover:underline">{reward.title}</p>
+
           <div className="flex justify-between mb-1">
             <p className="text-sm text-white">
               {reward.paidAmount} US$ de {reward.totalAmount} US$ pagado
             </p>
             <p className="text-sm text-white">{reward.percentage}%</p>
           </div>
-  
+
           <div className="h-3 w-full bg-[#121212] border border-[#2a2a2a] rounded mb-4">
             <div className="h-full bg-orange-500 rounded" style={{ width: `${reward.percentage}%` }}></div>
           </div>
-  
+
           <div className="grid grid-cols-3 gap-2">
             <div>
               <p className="text-xs font-bold text-gray-400 mb-1">Tipo</p>
               <p className="text-sm text-white">{reward.type}</p>
             </div>
-  
+
             <div>
               <p className="text-xs font-bold text-gray-400 mb-1">Plataformas</p>
               <img
@@ -58,7 +77,7 @@ interface RewardCardProps {
                 className="h-5"
               />
             </div>
-  
+
             <div>
               <p className="text-xs font-bold text-gray-400 mb-1">$ / Vistas</p>
               {reward.specialStyle ? (
@@ -74,7 +93,9 @@ interface RewardCardProps {
           </div>
         </div>
       </div>
-    )
-  }
-  
-  
+
+      {showModal && <WhopCreatorsModal onClose={handleCloseModal} />}
+    </>
+  )
+}
+
