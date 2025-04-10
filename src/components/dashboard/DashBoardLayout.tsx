@@ -7,6 +7,7 @@ import { DashboardSidebar } from "./DashboardSidebar"
 import { DashboardHeader } from "./DashboardHeader"
 import { MobileMenuToggle } from "./MobileMenuToggle"
 import { MobileSidebar } from "./MobileSidebar"
+import Sidebar from "../layout/Sidebar"
 
 interface DashboardLayoutProps {
   children: React.ReactNode
@@ -28,6 +29,7 @@ export function DashboardLayout({ children, title }: DashboardLayoutProps) {
 
       {/* Sidebar principal - oculto en móvil, visible en desktop */}
       <div className="hidden md:block">
+        <Sidebar />
         <DashboardSidebar />
       </div>
 

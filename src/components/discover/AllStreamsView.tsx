@@ -183,7 +183,7 @@ export function AllStreamsView() {
   const currentItems = allStreams.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
 
   return (
-    <div className="w-full bg-[#121212]">
+    <div className="w-full bg-[#191919]">
     <div className="mb-8">
       <div className="flex justify-between items-center mb-4">
         <div className="flex items-center">

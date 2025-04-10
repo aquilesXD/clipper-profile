@@ -115,7 +115,7 @@ export function DashboardSidebar() {
 
             {expandedSections.finanzas && (
               <div className="ml-12 space-y-1 mt-1">
-                <Link to="/dashboard/pagos" className="block px-4 py-2 text-gray-400 text-xs hover:text-gray-300">
+                <Link to="/dashboard/pago" className="block px-4 py-2 text-gray-400 text-xs hover:text-gray-300">
                   Pagos
                 </Link>
                 <Link to="/dashboard/disputas" className="block px-4 py-2 text-gray-400 text-xs hover:text-gray-300">
@@ -156,7 +156,7 @@ export function DashboardSidebar() {
                   Códigos promocionales
                 </Link>
                 <Link
-                  to="/dashboard/affiliate/customer"
+                  to="/dashboard/afiliados"
                   className="block px-4 py-2 text-gray-400 text-xs hover:text-gray-300"
                 >
                   Afiliados

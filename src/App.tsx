@@ -25,6 +25,23 @@ import Messages from './components/messsajes';
 import MessageConversation from './components/messsajes/conversation';
 import AllStreamsPage from './components/discover/AllStreamsPage';
 import { WhopsContent } from './components/dashboard/WhopsContent';
+import { PaymentLinksContent } from './components/dashboard/PaymentLinksContent';
+import { FirstUserContent } from './components/dashboard/FirstUserContent';
+import { WaitlistContent } from './components/dashboard/WaitlistContent';
+import { CancellationReasonsContent } from './components/dashboard/CancellationReasonsContent';
+import { FirstPaymentContent } from './components/dashboard/FirstPaymentContent';
+import { NoDisputesContent } from './components/dashboard/NoDisputesContent';
+import { ResolutionCenterContent } from './components/dashboard/ResolutionCenterContent';
+import { TrackingLinksContent } from './components/dashboard/TrackingLinksContent';
+import { PromotionContent } from './components/dashboard/PromotionContent';
+import { PromoCodeContent } from './components/dashboard/PromoCodeContent';
+import { AffiliatesContent } from './components/dashboard/AffiliatesContent';
+import { MessagesAutomationContent } from './components/dashboard/MessagesAutomationContent';
+import { SettingsContent } from './components/dashboard/SettingsContent';
+import { TeamSettingsContent } from './components/dashboard/TeamSettingsContent';
+import { ApiKeysContent } from './components/dashboard/ApiKeysContent';
+import { OAuthContent } from './components/dashboard/OAuthContent';
+import { WebhooksContent } from './components/dashboard/WebhooksContent';
 
 
 
@@ -88,6 +105,23 @@ function App() {
         <Route path="/" element={<Dashboard />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/dashboard/whops" element={<WhopsContent />} />
+        <Route path="/dashboard/pagos" element={<PaymentLinksContent />} />
+        <Route path="/dashboard/usuarios" element={<FirstUserContent />} />
+        <Route path="/dashboard/listas-espera" element={<WaitlistContent />} />
+        <Route path="/dashboard/cancelacion" element={<CancellationReasonsContent />} />
+        <Route path="/dashboard/pago" element={<FirstPaymentContent />} />
+        <Route path="/dashboard/disputas" element={<NoDisputesContent />} />
+        <Route path="/dashboard/resolucion" element={<ResolutionCenterContent />} />
+        <Route path="/dashboard/enlaces-seguimiento" element={<TrackingLinksContent />} />
+        <Route path="/dashboard/plomos" element={<PromotionContent />} />
+        <Route path="/dashboard/codigos" element={<PromoCodeContent />} />
+        <Route path="/dashboard/afiliados" element={<AffiliatesContent />} />
+        <Route path="/dashboard/mensajes" element={<MessagesAutomationContent />} />
+        <Route path="/dashboard/ajustes/general" element={<SettingsContent />} />
+        <Route path="/dashboard/ajustes/equipo" element={<TeamSettingsContent />} />
+        <Route path="/dashboard/ajustes/api" element={<ApiKeysContent />} />
+        <Route path="/dashboard/ajustes/oauth" element={<OAuthContent />} />
+        <Route path="/dashboard/ajustes/webhooks" element={<WebhooksContent />} />
 
       </Routes>
       </div>
